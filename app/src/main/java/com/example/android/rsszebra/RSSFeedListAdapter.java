@@ -17,9 +17,13 @@ import java.util.List;
  * Created by vitaliybv on 3/20/18.
  */
 
-public class RssFeedListAdapter extends RecyclerView.Adapter<RssFeedListAdapter.ItemViewHolder> {
+public class RSSFeedListAdapter extends RecyclerView.Adapter<RSSFeedListAdapter.ItemViewHolder> {
 
-    private RSSFeed mRSSFeed;
+    private RSSFeed rssFeed;
+
+    public void setRssFeed(RSSFeed rssFeed) {
+        this.rssFeed= rssFeed;
+    }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -32,8 +36,9 @@ public class RssFeedListAdapter extends RecyclerView.Adapter<RssFeedListAdapter.
 
     }
 
-    RssFeedListAdapter(RSSFeed mRSSFeed) {
-        this.mRSSFeed= mRSSFeed;
+    RSSFeedListAdapter(RSSFeed rssFeed) {
+        this.rssFeed = rssFeed;
+
     }
 
     @Override
@@ -48,13 +53,16 @@ public class RssFeedListAdapter extends RecyclerView.Adapter<RssFeedListAdapter.
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-       List<RSSItem> items =  mRSSFeed.getItems();
+        List<RSSItem> items = rssFeed.getItems();
+        RSSItem rssItem = items.get(position);
+        ((TextView) holder.rssFeedView.findViewById(R.id.tv_title)).setText(rssItem.getTitle());
+        ((TextView) holder.rssFeedView.findViewById(R.id.tv_pub_date)).setText(rssItem.getPubDate().toString());
 
     }
 
     @Override
     public int getItemCount() {
-        return mRSSFeed.getItems().size();
+        return rssFeed.getItems().size();
     }
 
 
