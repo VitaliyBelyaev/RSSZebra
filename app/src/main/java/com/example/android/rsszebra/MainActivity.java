@@ -9,19 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
-import org.mcsoxford.rss.RSSFeed;
-import org.mcsoxford.rss.RSSItem;
-import org.mcsoxford.rss.RSSReader;
+
+import com.example.android.rsszebra.data.RSSItem;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<RSSFeed>,
+        implements LoaderManager.LoaderCallbacks<ArrayList<RSSItem>>,
                    RSSFeedAdapter.RSSFeedAdapterOnClickHandler {
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeLayout;
     public final static String URL_STRING = "http://www.vesti.ru/vesti.rss";
-    private RSSReader rssReader;
 
 
     @Override
@@ -33,8 +34,6 @@ public class MainActivity extends AppCompatActivity
         mSwipeLayout = findViewById(R.id.swipeRefreshLayout);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        rssReader = new RSSReader();
 
         getLoaderManager().initLoader(13,null,this);
 
@@ -53,21 +52,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public Loader<RSSFeed> onCreateLoader(int id, Bundle args) {
+    public Loader<ArrayList<RSSItem>> onCreateLoader(int id, Bundle args) {
         mSwipeLayout.setRefreshing(true);
-        return new RSSFeedLoader(this, URL_STRING, rssReader);
+        return new RSSFeedLoader(this, URL_STRING);
 
     }
 
     @Override
-    public void onLoadFinished(Loader<RSSFeed> loader, RSSFeed rssFeed) {
+    public void onLoadFinished(Loader<ArrayList<RSSItem>> loader, ArrayList<RSSItem> items) {
         mSwipeLayout.setRefreshing(false);
-        mRecyclerView.setAdapter(new RSSFeedAdapter(rssFeed, this));
+        mRecyclerView.setAdapter(new RSSFeedAdapter(items, this));
 
     }
 
     @Override
-    public void onLoaderReset(Loader<RSSFeed> loader) {
+    public void onLoaderReset(Loader<ArrayList<RSSItem>> loader) {
 
     }
 

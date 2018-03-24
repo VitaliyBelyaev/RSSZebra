@@ -2,15 +2,16 @@ package com.example.android.rsszebra;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import org.mcsoxford.rss.RSSFeed;
-import org.mcsoxford.rss.RSSItem;
+import com.example.android.rsszebra.data.RSSItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,22 +20,17 @@ import java.util.List;
 
 public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemViewHolder> {
 
-    private RSSFeed rssFeed;
+    private ArrayList<RSSItem> items;
 
     private final RSSFeedAdapterOnClickHandler mClickHandler;
-
-
-    public void setRssFeed(RSSFeed rssFeed) {
-        this.rssFeed= rssFeed;
-    }
 
 
     public interface RSSFeedAdapterOnClickHandler {
         void onClick(RSSItem rssItem);
     }
 
-    RSSFeedAdapter(RSSFeed rssFeed,RSSFeedAdapterOnClickHandler mClickHandler) {
-        this.rssFeed = rssFeed;
+    RSSFeedAdapter(ArrayList<RSSItem> items,RSSFeedAdapterOnClickHandler mClickHandler) {
+        this.items = items;
         this.mClickHandler = mClickHandler;
 
     }
@@ -52,7 +48,7 @@ public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemView
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            RSSItem rssItem = rssFeed.getItems().get(adapterPosition);
+            RSSItem rssItem = items.get(adapterPosition);
             mClickHandler.onClick(rssItem);
         }
     }
@@ -71,8 +67,10 @@ public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemView
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        List<RSSItem> items = rssFeed.getItems();
         RSSItem rssItem = items.get(position);
+        Log.d("DEBUG_ADAPTER", "Position: " + position);
+        Log.d("DEBUG_ADAPTER_ITEMS", items.toString());
+        Log.d("DEBUG_ADAPTER", rssItem.toString());
         ((TextView) holder.rssFeedView.findViewById(R.id.tv_title)).setText(rssItem.getTitle());
         ((TextView) holder.rssFeedView.findViewById(R.id.tv_pub_date)).setText(rssItem.getPubDate().toString());
 
@@ -81,7 +79,7 @@ public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemView
 
     @Override
     public int getItemCount() {
-        return rssFeed.getItems().size();
+        return items.size();
     }
 
 

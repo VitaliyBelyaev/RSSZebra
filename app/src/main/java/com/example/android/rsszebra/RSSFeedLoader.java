@@ -5,23 +5,33 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import org.mcsoxford.rss.RSSFeed;
-import org.mcsoxford.rss.RSSReader;
-import org.mcsoxford.rss.RSSReaderException;
+import com.example.android.rsszebra.data.RSSItem;
+import com.example.android.rsszebra.data.XMLParser;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by vitaliybv on 3/22/18.
  */
 
-public class RSSFeedLoader extends AsyncTaskLoader<RSSFeed> {
+public class RSSFeedLoader extends AsyncTaskLoader<ArrayList<RSSItem>> {
 
     private String url;
-    private RSSReader rssReader;
+    private OkHttpClient client;
+    private XMLParser xmlParser;
 
-    public RSSFeedLoader(Context context, String url, RSSReader rssReader) {
+    public RSSFeedLoader(Context context, String url) {
         super(context);
         this.url = url;
-        this.rssReader = rssReader;
+        client = new OkHttpClient();
+        xmlParser = new XMLParser();
     }
 
 
@@ -33,16 +43,28 @@ public class RSSFeedLoader extends AsyncTaskLoader<RSSFeed> {
 
 
     @Override
-    public RSSFeed loadInBackground() {
+    public ArrayList<RSSItem> loadInBackground() {
         if (url == null) {
             return null;
         }
 
         try {
-            return rssReader.load(url);
-        } catch (RSSReaderException e) {
+            String response = run(url);
+            return xmlParser.parseXML(response);
+        } catch (XmlPullParserException x) {
+            x.printStackTrace();
+        } catch (IOException e){
             e.printStackTrace();
         }
         return null;
+    }
+
+    String run(String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 }
