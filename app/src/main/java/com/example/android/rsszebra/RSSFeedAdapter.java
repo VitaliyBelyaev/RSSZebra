@@ -17,29 +17,47 @@ import java.util.List;
  * Created by vitaliybv on 3/20/18.
  */
 
-public class RSSFeedListAdapter extends RecyclerView.Adapter<RSSFeedListAdapter.ItemViewHolder> {
+public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemViewHolder> {
 
     private RSSFeed rssFeed;
+
+    private final RSSFeedAdapterOnClickHandler mClickHandler;
+
 
     public void setRssFeed(RSSFeed rssFeed) {
         this.rssFeed= rssFeed;
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+
+    public interface RSSFeedAdapterOnClickHandler {
+        void onClick(RSSItem rssItem);
+    }
+
+    RSSFeedAdapter(RSSFeed rssFeed,RSSFeedAdapterOnClickHandler mClickHandler) {
+        this.rssFeed = rssFeed;
+        this.mClickHandler = mClickHandler;
+
+    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private View rssFeedView;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             this.rssFeedView = itemView;
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            int adapterPosition = getAdapterPosition();
+            RSSItem rssItem = rssFeed.getItems().get(adapterPosition);
+            mClickHandler.onClick(rssItem);
+        }
     }
 
-    RSSFeedListAdapter(RSSFeed rssFeed) {
-        this.rssFeed = rssFeed;
 
-    }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -57,6 +75,7 @@ public class RSSFeedListAdapter extends RecyclerView.Adapter<RSSFeedListAdapter.
         RSSItem rssItem = items.get(position);
         ((TextView) holder.rssFeedView.findViewById(R.id.tv_title)).setText(rssItem.getTitle());
         ((TextView) holder.rssFeedView.findViewById(R.id.tv_pub_date)).setText(rssItem.getPubDate().toString());
+
 
     }
 
