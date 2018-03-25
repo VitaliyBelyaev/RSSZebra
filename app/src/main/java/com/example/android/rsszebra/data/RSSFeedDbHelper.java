@@ -23,7 +23,7 @@ public class RSSFeedDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + RSSFeedContract.RSSItemEntry.TABLE_NAME + " (" +
-                        RSSFeedContract.RSSItemEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        RSSFeedContract.RSSItemEntry._ID + " TEXT PRIMARY KEY ," +
                         RSSFeedContract.RSSItemEntry.COLUMN_ITEM_TITLE+ " TEXT NOT NULL," +
                         RSSFeedContract.RSSItemEntry.COLUMN_ITEM_PUB_DATE+ " TEXT NOT NULL," +
                         RSSFeedContract.RSSItemEntry.COLUMN_ITEM_DESCRIPTION+ " TEXT NOT NULL," +

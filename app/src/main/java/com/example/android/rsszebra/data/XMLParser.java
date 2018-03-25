@@ -51,6 +51,13 @@ public class XMLParser {
                         currentItem.setTitle(title);
                     }
 
+                } else if (xmlPullParser.getName().equalsIgnoreCase("link")) {
+
+                    if (insideItem) {
+                        String id = xmlPullParser.nextText();
+                        currentItem.setId(id);
+                    }
+
                 } else if (xmlPullParser.getName().equalsIgnoreCase("description")) {
 
                     if (insideItem) {

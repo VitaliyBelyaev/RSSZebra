@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class RSSItem {
 
+    private String id;
     private String title;
     private String description;
     private Date pubDate;
@@ -16,6 +17,14 @@ public class RSSItem {
 
     public RSSItem(){
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -61,7 +70,8 @@ public class RSSItem {
     @Override
     public String toString() {
         return "RSSItem{" +
-                "title='" + title + '\'' +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", pubDate=" + pubDate +
                 ", fullText='" + fullText + '\'' +

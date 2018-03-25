@@ -24,7 +24,10 @@ public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemView
 
     private final RSSFeedAdapterOnClickHandler mClickHandler;
 
-
+//TODO 1) Сделать ContentProvider для записи в БД, как id используем link
+    // TODO 2) Добавить методы getCursor и swapCursor в адапетр и придумать как его передавать: через конструктор или set
+    // TODO 3) Добваить загрузку картинки
+    // TODO 4) Сделать UI
     public interface RSSFeedAdapterOnClickHandler {
         void onClick(RSSItem rssItem);
     }
@@ -68,9 +71,6 @@ public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemView
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         RSSItem rssItem = items.get(position);
-        Log.d("DEBUG_ADAPTER", "Position: " + position);
-        Log.d("DEBUG_ADAPTER_ITEMS", items.toString());
-        Log.d("DEBUG_ADAPTER", rssItem.toString());
         ((TextView) holder.rssFeedView.findViewById(R.id.tv_title)).setText(rssItem.getTitle());
         ((TextView) holder.rssFeedView.findViewById(R.id.tv_pub_date)).setText(rssItem.getPubDate().toString());
 
