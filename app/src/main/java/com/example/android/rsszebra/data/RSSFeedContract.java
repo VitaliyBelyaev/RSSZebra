@@ -34,7 +34,7 @@ public class RSSFeedContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_RSS_ITEMS;
 
         public static final String TABLE_NAME = "rss_items";
-        public static final String _ID = "_id";
+        public static final String COLUMN_ITEM_LINK = "link";
         public static final String COLUMN_ITEM_TITLE = "title";
         public static final String COLUMN_ITEM_PUB_DATE = "pub_date";
         public static final String COLUMN_ITEM_DESCRIPTION = "description";

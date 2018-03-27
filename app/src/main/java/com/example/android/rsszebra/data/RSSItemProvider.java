@@ -52,13 +52,6 @@ public class RSSItemProvider extends ContentProvider {
                 cursor = db.query(TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
-            case ITEM_ID:
-                selection = _ID + "=?";
-                selectionArgs = new String[]{uri.getLastPathSegment()};
-
-                cursor = db.query(TABLE_NAME, projection, selection, selectionArgs,
-                        null, null, sortOrder);
-                break;
             default:
                 throw new IllegalArgumentException("Cannot query unknown URI " + uri);
         }
@@ -77,35 +70,11 @@ public class RSSItemProvider extends ContentProvider {
             case ITEMS:
                 SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-                StringBuilder sql = new StringBuilder();
-                sql.append("INSERT");
-                sql.append(" INTO ");
-                sql.append(TABLE_NAME);
-                sql.append('(');
-
-                Object[] bindArgs = null;
-
-                int size = initialValues.size();
-                bindArgs = new Object[size];
-                int i = 0;
-                for (String colName : initialValues.keySet()) {
-                    sql.append((i > 0) ? "," : "");
-                    sql.append(colName);
-                    bindArgs[i++] = initialValues.get(colName);
-                }
-                sql.append(')');
-                sql.append(" VALUES (");
-                for (i = 0; i < size; i++) {
-                    sql.append((i > 0) ? ",?" : "?");
-                }
-                sql.append(')');
-
-                String id = initialValues.get(_ID).toString();
-                db.execSQL(sql.toString(), bindArgs);
-
+                String link = initialValues.get(COLUMN_ITEM_LINK).toString();
+                db.insertWithOnConflict(TABLE_NAME,null, initialValues, SQLiteDatabase.CONFLICT_IGNORE);
 
                 getContext().getContentResolver().notifyChange(uri, null);
-                return Uri.withAppendedPath(uri, id);
+                return Uri.withAppendedPath(uri, link);
 
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
@@ -123,7 +92,7 @@ public class RSSItemProvider extends ContentProvider {
 
                 break;
             case ITEM_ID:
-                selection = _ID + "=?";
+                selection = COLUMN_ITEM_LINK + "=?";
                 selectionArgs = new String[]{uri.getLastPathSegment()};
 
                 deletedRows = db.delete(TABLE_NAME, selection, selectionArgs);
@@ -155,7 +124,7 @@ public class RSSItemProvider extends ContentProvider {
                 updatedRows = db.update(TABLE_NAME, values, selection, selectionArgs);
                 break;
             case ITEM_ID:
-                selection = _ID + "=?";
+                selection = COLUMN_ITEM_LINK + "=?";
                 selectionArgs = new String[]{uri.getLastPathSegment()};
 
                 updatedRows = db.update(TABLE_NAME, values, selection, selectionArgs);

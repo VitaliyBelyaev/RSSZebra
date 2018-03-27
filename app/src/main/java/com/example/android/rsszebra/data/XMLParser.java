@@ -87,9 +87,7 @@ public class XMLParser {
             }
 
             if (xpp.getEventType() == xpp.END_TAG && xpp.getName().equalsIgnoreCase("title")) {
-                Log.i("ABOUT Link", "Before next(), eventType= " + xpp.getEventType() + ", Name: " + xpp.getName());
-                eventType = xpp.nextTag();
-                Log.i("ABOUT Link", "After next(), eventType= " + xpp.getEventType() + ", Name: " + xpp.getName());
+                xpp.nextTag();
                 if (xpp.getEventType() == xpp.START_TAG && xpp.getName().equalsIgnoreCase("link")) {
                     if (insideItem) {
                         Log.i("About link", "Inside Item");
@@ -98,8 +96,6 @@ public class XMLParser {
                     }
                 }
             }
-
-            Log.i("NAME TAGS","NAME_______" + xpp.getName() + ", eventType: " + xpp.getEventType());
             eventType = xpp.next();
         }
 

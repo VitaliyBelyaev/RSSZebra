@@ -23,8 +23,8 @@ public class RSSItem {
         return link;
     }
 
-    public void setLink(String id) {
-        this.link = id;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getTitle() {

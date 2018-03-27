@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,8 +20,6 @@ public class DetailsActivity extends AppCompatActivity {
     private ImageView mImageView;
 
 
-    private Uri currentUri;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +30,11 @@ public class DetailsActivity extends AppCompatActivity {
         mDescriptionTextView = findViewById(R.id.tv_details_description);
         mImageView = findViewById(R.id.iv_details_image);
 
-        currentUri = getIntent().getData();
+        String uriAsString = getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
         String[] projection =
                 {
-                        _ID,
+                        COLUMN_ITEM_LINK,
                         COLUMN_ITEM_IMAGE,
                         COLUMN_ITEM_TITLE,
                         COLUMN_ITEM_DESCRIPTION,
@@ -43,8 +42,12 @@ public class DetailsActivity extends AppCompatActivity {
                         COLUMN_ITEM_PUB_DATE
                 };
 
-        Cursor cursor = getContentResolver().query(currentUri, projection, null,
-                null,
+        String selection = COLUMN_ITEM_LINK + "=?";
+        String[] selectionArgs = new String[]{uriAsString};
+
+
+        Cursor cursor = getContentResolver().query(CONTENT_URI, projection, selection,
+                selectionArgs,
                 null);
 
         if (cursor.moveToFirst()) {

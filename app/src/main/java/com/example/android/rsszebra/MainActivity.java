@@ -69,10 +69,8 @@ public class MainActivity extends AppCompatActivity
         ContentResolver contentResolver = getContentResolver();
 
         for(RSSItem item:items){
-
-            Log.d("LINK","Link: " + item.getLink());
             ContentValues values = new ContentValues();
-            values.put(_ID , item.getLink());
+            values.put(COLUMN_ITEM_LINK , item.getLink());
             values.put(COLUMN_ITEM_TITLE, item.getTitle());
             values.put(COLUMN_ITEM_PUB_DATE, item.getPubDate().toString());
             values.put(COLUMN_ITEM_DESCRIPTION, item.getDescription());
@@ -94,9 +92,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(RSSItem rssItem) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        Uri uri = Uri.withAppendedPath(RSSFeedContract.RSSItemEntry.CONTENT_URI, rssItem.getLink());
-        i.setData(uri);
+        Log.i("Intent link", "link:" + rssItem.getLink());
+        Intent i = new Intent();
+        i.putExtra(Intent.EXTRA_TEXT, rssItem.getLink());
         i.setClass(getApplicationContext(), DetailsActivity.class);
         startActivity(i);
     }

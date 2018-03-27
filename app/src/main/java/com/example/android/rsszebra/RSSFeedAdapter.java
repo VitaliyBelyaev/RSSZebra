@@ -24,10 +24,10 @@ public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemView
 
     private final RSSFeedAdapterOnClickHandler mClickHandler;
 
-//TODO 1) Сделать ContentProvider для записи в БД, как id используем link
-    // TODO 2) Добавить методы getCursor и swapCursor в адапетр и придумать как его передавать: через конструктор или set
+
     // TODO 3) Добваить загрузку картинки
     // TODO 4) Сделать UI
+    //TODO 5) Разобраться с датой
     public interface RSSFeedAdapterOnClickHandler {
         void onClick(RSSItem rssItem);
     }
