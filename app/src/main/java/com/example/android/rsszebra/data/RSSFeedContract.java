@@ -38,6 +38,7 @@ public class RSSFeedContract {
         public static final String COLUMN_ITEM_TITLE = "title";
         public static final String COLUMN_ITEM_PUB_DATE = "pub_date";
         public static final String COLUMN_ITEM_DESCRIPTION = "description";
+        public static final String COLUMN_ITEM_FULL_TEXT = "full_text";
         public static final String COLUMN_ITEM_IMAGE = "image";
     }
 }

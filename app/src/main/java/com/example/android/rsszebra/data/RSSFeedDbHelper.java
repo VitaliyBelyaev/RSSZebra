@@ -23,11 +23,12 @@ public class RSSFeedDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + RSSFeedContract.RSSItemEntry.TABLE_NAME + " (" +
-                        RSSFeedContract.RSSItemEntry._ID + " TEXT PRIMARY KEY ," +
+                        RSSFeedContract.RSSItemEntry._ID + " TEXT PRIMARY KEY NOT NULL," +
                         RSSFeedContract.RSSItemEntry.COLUMN_ITEM_TITLE+ " TEXT NOT NULL," +
                         RSSFeedContract.RSSItemEntry.COLUMN_ITEM_PUB_DATE+ " TEXT NOT NULL," +
-                        RSSFeedContract.RSSItemEntry.COLUMN_ITEM_DESCRIPTION+ " TEXT NOT NULL," +
-                        RSSFeedContract.RSSItemEntry.COLUMN_ITEM_IMAGE + " TEXT);";
+                        RSSFeedContract.RSSItemEntry.COLUMN_ITEM_DESCRIPTION+ " TEXT," +
+                        RSSFeedContract.RSSItemEntry.COLUMN_ITEM_FULL_TEXT+ " TEXT," +
+                        RSSFeedContract.RSSItemEntry.COLUMN_ITEM_IMAGE + " TEXT) WITHOUT ROWID;";
 
         db.execSQL(SQL_CREATE_ENTRIES);
     }

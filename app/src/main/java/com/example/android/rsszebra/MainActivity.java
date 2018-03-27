@@ -1,9 +1,12 @@
 package com.example.android.rsszebra;
 
 import android.app.LoaderManager;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,10 +14,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import java.util.ArrayList;
 
+import com.example.android.rsszebra.data.RSSFeedContract;
 import com.example.android.rsszebra.data.RSSItem;
 
-import java.util.ArrayList;
+import static com.example.android.rsszebra.data.RSSFeedContract.RSSItemEntry.*;
 
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<ArrayList<RSSItem>>,
@@ -61,6 +66,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<ArrayList<RSSItem>> loader, ArrayList<RSSItem> items) {
         mSwipeLayout.setRefreshing(false);
+        ContentResolver contentResolver = getContentResolver();
+
+        for(RSSItem item:items){
+
+            Log.d("LINK","Link: " + item.getLink());
+            ContentValues values = new ContentValues();
+            values.put(_ID , item.getLink());
+            values.put(COLUMN_ITEM_TITLE, item.getTitle());
+            values.put(COLUMN_ITEM_PUB_DATE, item.getPubDate().toString());
+            values.put(COLUMN_ITEM_DESCRIPTION, item.getDescription());
+            values.put(COLUMN_ITEM_FULL_TEXT, item.getFullText());
+            values.put(COLUMN_ITEM_IMAGE, item.getImage());
+
+
+
+            contentResolver.insert(CONTENT_URI, values);
+        }
         mRecyclerView.setAdapter(new RSSFeedAdapter(items, this));
 
     }
@@ -72,8 +94,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(RSSItem rssItem) {
-        Intent intentToStartDetailsActivity = new Intent(this, DetailsActivity.class);
-        intentToStartDetailsActivity.putExtra(Intent.EXTRA_TEXT, rssItem.getDescription());
-        startActivity(intentToStartDetailsActivity);
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.withAppendedPath(RSSFeedContract.RSSItemEntry.CONTENT_URI, rssItem.getLink());
+        i.setData(uri);
+        i.setClass(getApplicationContext(), DetailsActivity.class);
+        startActivity(i);
     }
 }

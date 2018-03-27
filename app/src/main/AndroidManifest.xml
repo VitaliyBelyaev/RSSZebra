@@ -26,6 +26,14 @@
                 android:value=".MainActivity">
             </meta-data>
         </activity>
+
+        <provider
+            android:authorities="com.example.android.rsszebra"
+            android:name=".data.RSSItemProvider"
+            android:exported="false">
+
+        </provider>
+
     </application>
 
 </manifest>

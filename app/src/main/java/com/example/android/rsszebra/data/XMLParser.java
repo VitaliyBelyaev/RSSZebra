@@ -6,6 +6,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class XMLParser {
     private ArrayList<RSSItem> items;
     private RSSItem currentItem;
 
-    public XMLParser(){
+    public XMLParser() {
         items = new ArrayList<>();
         currentItem = new RSSItem();
     }
@@ -30,60 +31,76 @@ public class XMLParser {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 
         factory.setNamespaceAware(false);
-        XmlPullParser xmlPullParser = factory.newPullParser();
+        XmlPullParser xpp = factory.newPullParser();
 
-        xmlPullParser.setInput(new StringReader(xml));
+        xpp.setInput(new StringReader(xml));
         boolean insideItem = false;
-        int eventType = xmlPullParser.getEventType();
+        int eventType = xpp.getEventType();
 
-        while (eventType != XmlPullParser.END_DOCUMENT) {
+        while (eventType != xpp.END_DOCUMENT) {
 
-            if (eventType == XmlPullParser.START_TAG) {
+            if (eventType == xpp.START_TAG) {
 
-                if (xmlPullParser.getName().equalsIgnoreCase("item")) {
+                if (xpp.getName().equalsIgnoreCase("item")) {
 
                     insideItem = true;
 
-                } else if (xmlPullParser.getName().equalsIgnoreCase("title")) {
+                } else if (xpp.getName().equalsIgnoreCase("title")) {
 
                     if (insideItem) {
-                        String title = xmlPullParser.nextText();
+                        String title = xpp.nextText();
                         currentItem.setTitle(title);
                     }
 
-                } else if (xmlPullParser.getName().equalsIgnoreCase("link")) {
+                } else if (xpp.getName().equalsIgnoreCase("title")) {
 
                     if (insideItem) {
-                        String id = xmlPullParser.nextText();
-                        currentItem.setId(id);
+                        String link = xpp.nextText();
+                        currentItem.setLink(link);
                     }
 
-                } else if (xmlPullParser.getName().equalsIgnoreCase("description")) {
+                } else if (xpp.getName().equalsIgnoreCase("description")) {
 
                     if (insideItem) {
-                        String description = xmlPullParser.nextText();
+                        String description = xpp.nextText();
                         currentItem.setDescription(description);
                     }
 
-                } else if (xmlPullParser.getName().equalsIgnoreCase("full-text")) {
+                } else if (xpp.getName().equalsIgnoreCase("yandex:full-text")) {
 
                     if (insideItem) {
-                        String fullText = xmlPullParser.nextText();
+                        String fullText = xpp.nextText();
                         currentItem.setFullText(fullText);
                     }
 
-                } else if (xmlPullParser.getName().equalsIgnoreCase("pubDate")) {
+                } else if (xpp.getName().equalsIgnoreCase("pubDate")) {
                     @SuppressWarnings("deprecation")
-                    Date pubDate = new Date(xmlPullParser.nextText());
+                    Date pubDate = new Date(xpp.nextText());
                     currentItem.setPubDate(pubDate);
                 }
 
-            } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equalsIgnoreCase("item")) {
+            } else if (eventType == xpp.END_TAG && xpp.getName().equalsIgnoreCase("item")) {
                 insideItem = false;
                 items.add(currentItem);
+                Log.d("XML_PARSER", currentItem.toString());
                 currentItem = new RSSItem();
             }
-            eventType = xmlPullParser.next();
+
+            if (xpp.getEventType() == xpp.END_TAG && xpp.getName().equalsIgnoreCase("title")) {
+                Log.i("ABOUT Link", "Before next(), eventType= " + xpp.getEventType() + ", Name: " + xpp.getName());
+                eventType = xpp.nextTag();
+                Log.i("ABOUT Link", "After next(), eventType= " + xpp.getEventType() + ", Name: " + xpp.getName());
+                if (xpp.getEventType() == xpp.START_TAG && xpp.getName().equalsIgnoreCase("link")) {
+                    if (insideItem) {
+                        Log.i("About link", "Inside Item");
+                        String link = xpp.nextText();
+                        currentItem.setLink(link);
+                    }
+                }
+            }
+
+            Log.i("NAME TAGS","NAME_______" + xpp.getName() + ", eventType: " + xpp.getEventType());
+            eventType = xpp.next();
         }
 
         return items;
