@@ -13,7 +13,7 @@ public class RSSItem {
     private String description;
     private Date pubDate;
     private String fullText;
-    private String image;
+    private String imageLink;
 
     public RSSItem(){
 
@@ -59,12 +59,12 @@ public class RSSItem {
         this.fullText = fullText;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class RSSItem {
                 ", description='" + description + '\'' +
                 ", pubDate=" + pubDate +
                 ", fullText='" + fullText + '\'' +
-                ", image='" + image + '\'' +
+                ", imageLink='" + imageLink + '\'' +
                 '}';
     }
 }

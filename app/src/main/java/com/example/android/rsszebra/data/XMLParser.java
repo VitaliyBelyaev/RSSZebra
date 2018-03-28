@@ -73,6 +73,15 @@ public class XMLParser {
                         currentItem.setFullText(fullText);
                     }
 
+                } else if (xpp.getName().equalsIgnoreCase("enclosure")) {
+
+                    if (insideItem) {
+                        String type = xpp.getAttributeValue(null, "type");
+                        if (type != null && type.equalsIgnoreCase("image/jpeg")) {
+                            String imageUrl = xpp.getAttributeValue(null, "url");
+                            currentItem.setImageLink(imageUrl);
+                        }
+                    }
                 } else if (xpp.getName().equalsIgnoreCase("pubDate")) {
                     @SuppressWarnings("deprecation")
                     Date pubDate = new Date(xpp.nextText());
@@ -90,7 +99,6 @@ public class XMLParser {
                 xpp.nextTag();
                 if (xpp.getEventType() == xpp.START_TAG && xpp.getName().equalsIgnoreCase("link")) {
                     if (insideItem) {
-                        Log.i("About link", "Inside Item");
                         String link = xpp.nextText();
                         currentItem.setLink(link);
                     }

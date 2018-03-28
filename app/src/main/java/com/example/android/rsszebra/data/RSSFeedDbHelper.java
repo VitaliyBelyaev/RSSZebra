@@ -28,7 +28,7 @@ public class RSSFeedDbHelper extends SQLiteOpenHelper {
                         RSSFeedContract.RSSItemEntry.COLUMN_ITEM_PUB_DATE+ " TEXT NOT NULL," +
                         RSSFeedContract.RSSItemEntry.COLUMN_ITEM_DESCRIPTION+ " TEXT," +
                         RSSFeedContract.RSSItemEntry.COLUMN_ITEM_FULL_TEXT+ " TEXT," +
-                        RSSFeedContract.RSSItemEntry.COLUMN_ITEM_IMAGE + " TEXT) WITHOUT ROWID;";
+                        RSSFeedContract.RSSItemEntry.COLUMN_ITEM_IMAGE + " TEXT);";
 
         db.execSQL(SQL_CREATE_ENTRIES);
     }

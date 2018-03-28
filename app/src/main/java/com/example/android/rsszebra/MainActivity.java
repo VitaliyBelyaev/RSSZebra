@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
             values.put(COLUMN_ITEM_PUB_DATE, item.getPubDate().toString());
             values.put(COLUMN_ITEM_DESCRIPTION, item.getDescription());
             values.put(COLUMN_ITEM_FULL_TEXT, item.getFullText());
-            values.put(COLUMN_ITEM_IMAGE, item.getImage());
+            values.put(COLUMN_ITEM_IMAGE, item.getImageLink());
 
 
 
