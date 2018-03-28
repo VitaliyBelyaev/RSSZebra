@@ -5,15 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context="com.example.android.rsszebra.DetailsActivity">
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context="com.example.android.rsszebra.DetailsActivity">
 
 
+        <ProgressBar
+            android:id="@+id/details_progress_bar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_details_image"
@@ -42,6 +47,5 @@
             android:text="Text" />
 
 
-
-</LinearLayout>
+    </LinearLayout>
 </ScrollView>

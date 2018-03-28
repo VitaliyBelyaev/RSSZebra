@@ -25,9 +25,9 @@ public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemView
     private final RSSFeedAdapterOnClickHandler mClickHandler;
 
 
-    // TODO 3) Добваить загрузку картинки
     // TODO 4) Сделать UI
     //TODO 5) Разобраться с датой
+    // TODO 6) сДЕЛАТЬ поведение стрелочки назад нормальным
     public interface RSSFeedAdapterOnClickHandler {
         void onClick(RSSItem rssItem);
     }

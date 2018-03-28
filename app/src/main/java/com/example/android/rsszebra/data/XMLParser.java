@@ -9,8 +9,12 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by vitaliybv on 3/24/18.
@@ -83,11 +87,17 @@ public class XMLParser {
                         }
                     }
                 } else if (xpp.getName().equalsIgnoreCase("pubDate")) {
-                    @SuppressWarnings("deprecation")
-                    Date pubDate = new Date(xpp.nextText());
-                    currentItem.setPubDate(pubDate);
-                }
 
+                    try {
+                        SimpleDateFormat inputSdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+                        SimpleDateFormat outputSdf = new SimpleDateFormat("dd MMM yyyy, HH:mm",Locale.getDefault());
+                        Date date = inputSdf.parse(xpp.nextText());
+                        String pubDate = outputSdf.format(date);
+                        currentItem.setPubDate(pubDate);
+                    } catch (ParseException pe) {
+                        pe.printStackTrace();
+                    }
+                }
             } else if (eventType == xpp.END_TAG && xpp.getName().equalsIgnoreCase("item")) {
                 insideItem = false;
                 items.add(currentItem);

@@ -11,7 +11,7 @@ public class RSSItem {
     private String link;
     private String title;
     private String description;
-    private Date pubDate;
+    private String pubDate;
     private String fullText;
     private String imageLink;
 
@@ -43,11 +43,11 @@ public class RSSItem {
         this.description = description;
     }
 
-    public Date getPubDate() {
+    public String getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(Date pubDate) {
+    public void setPubDate(String pubDate) {
         this.pubDate = pubDate;
     }
 

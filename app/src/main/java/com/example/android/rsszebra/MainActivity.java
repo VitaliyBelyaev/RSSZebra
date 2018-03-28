@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
             ContentValues values = new ContentValues();
             values.put(COLUMN_ITEM_LINK , item.getLink());
             values.put(COLUMN_ITEM_TITLE, item.getTitle());
-            values.put(COLUMN_ITEM_PUB_DATE, item.getPubDate().toString());
+            values.put(COLUMN_ITEM_PUB_DATE, item.getPubDate());
             values.put(COLUMN_ITEM_DESCRIPTION, item.getDescription());
             values.put(COLUMN_ITEM_FULL_TEXT, item.getFullText());
             values.put(COLUMN_ITEM_IMAGE, item.getImageLink());
