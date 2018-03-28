@@ -1,6 +1,5 @@
 package com.example.android.rsszebra.data;
 
-import java.util.Date;
 
 /**
  * Created by vitaliybv on 3/24/18.

@@ -3,20 +3,16 @@ package com.example.android.rsszebra;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
-import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-import com.example.android.rsszebra.data.RSSFeedContract;
 import com.example.android.rsszebra.data.RSSItem;
 
 import static com.example.android.rsszebra.data.RSSFeedContract.RSSItemEntry.*;
@@ -77,12 +73,9 @@ public class MainActivity extends AppCompatActivity
             values.put(COLUMN_ITEM_FULL_TEXT, item.getFullText());
             values.put(COLUMN_ITEM_IMAGE, item.getImageLink());
 
-
-
             contentResolver.insert(CONTENT_URI, values);
         }
         mRecyclerView.setAdapter(new RSSFeedAdapter(items, this));
-
     }
 
     @Override
@@ -92,7 +85,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(RSSItem rssItem) {
-        Log.i("Intent link", "link:" + rssItem.getLink());
         Intent i = new Intent();
         i.putExtra(Intent.EXTRA_TEXT, rssItem.getLink());
         i.setClass(getApplicationContext(), DetailsActivity.class);

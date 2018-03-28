@@ -9,7 +9,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,7 +89,7 @@ public class XMLParser {
 
                     try {
                         SimpleDateFormat inputSdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-                        SimpleDateFormat outputSdf = new SimpleDateFormat("dd MMM yyyy, HH:mm",Locale.getDefault());
+                        SimpleDateFormat outputSdf = new SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault());
                         Date date = inputSdf.parse(xpp.nextText());
                         String pubDate = outputSdf.format(date);
                         currentItem.setPubDate(pubDate);
@@ -98,6 +97,7 @@ public class XMLParser {
                         pe.printStackTrace();
                     }
                 }
+
             } else if (eventType == xpp.END_TAG && xpp.getName().equalsIgnoreCase("item")) {
                 insideItem = false;
                 items.add(currentItem);
@@ -116,7 +116,6 @@ public class XMLParser {
             }
             eventType = xpp.next();
         }
-
         return items;
     }
 }

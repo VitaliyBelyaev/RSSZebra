@@ -1,18 +1,15 @@
 package com.example.android.rsszebra;
 
 import android.content.AsyncTaskLoader;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -84,8 +81,6 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
             String description = cursor.getString(descriptionIndex);
             String fullText = cursor.getString(fullTextIndex);
 
-
-
             String text;
             if (fullText == null || fullText.isEmpty()) {
                 text = description;
@@ -93,11 +88,9 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
                 text = fullText;
             }
 
-
             mTitleTextView.setText(title);
             mPubDateTextView.setText(pubDate);
             mDescriptionTextView.setText(text);
-
             cursor.close();
         }
     }

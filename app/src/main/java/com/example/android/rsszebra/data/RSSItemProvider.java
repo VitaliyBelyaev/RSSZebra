@@ -1,7 +1,6 @@
 package com.example.android.rsszebra.data;
 
 import android.content.ContentProvider;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -22,13 +21,11 @@ public class RSSItemProvider extends ContentProvider {
     private RSSFeedDbHelper mDbHelper;
     public static final String LOG_TAG = RSSItemProvider.class.getSimpleName();
     private static final int ITEMS = 13;
-    private static final int ITEM_ID = 5;
 
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         sUriMatcher.addURI(RSSFeedContract.CONTENT_AUTHORITY, RSSFeedContract.PATH_RSS_ITEMS, ITEMS);
-        sUriMatcher.addURI(RSSFeedContract.CONTENT_AUTHORITY, RSSFeedContract.PATH_RSS_ITEMS + "/*", ITEM_ID);
     }
 
     @Override
@@ -91,12 +88,6 @@ public class RSSItemProvider extends ContentProvider {
                 deletedRows = db.delete(TABLE_NAME, selection, selectionArgs);
 
                 break;
-            case ITEM_ID:
-                selection = COLUMN_ITEM_LINK + "=?";
-                selectionArgs = new String[]{uri.getLastPathSegment()};
-
-                deletedRows = db.delete(TABLE_NAME, selection, selectionArgs);
-                break;
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
         }
@@ -123,12 +114,6 @@ public class RSSItemProvider extends ContentProvider {
             case ITEMS:
                 updatedRows = db.update(TABLE_NAME, values, selection, selectionArgs);
                 break;
-            case ITEM_ID:
-                selection = COLUMN_ITEM_LINK + "=?";
-                selectionArgs = new String[]{uri.getLastPathSegment()};
-
-                updatedRows = db.update(TABLE_NAME, values, selection, selectionArgs);
-                break;
             default:
                 throw new IllegalArgumentException("Updation is not supported for " + uri);
         }
@@ -150,8 +135,6 @@ public class RSSItemProvider extends ContentProvider {
         switch (match) {
             case ITEMS:
                 return CONTENT_LIST_TYPE;
-            case ITEM_ID:
-                return CONTENT_ITEM_TYPE;
             default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }

@@ -13,8 +13,7 @@ public class RSSFeedContract {
 
 
     private RSSFeedContract(){
-
-    }
+        }
 
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + RSSItemEntry.TABLE_NAME +";" ;
