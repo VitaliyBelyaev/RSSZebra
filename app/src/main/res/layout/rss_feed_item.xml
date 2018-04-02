@@ -10,15 +10,17 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textColor="@android:color/black"
-        style="@style/RSSItem"
+        style="@style/RSSItem_paddings"
+        android:fontFamily="sans-serif-condensed"
         android:text="Title"/>
 
     <TextView
         android:id="@+id/tv_pub_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/RSSItem"
+        style="@style/RSSItem_paddings"
         android:paddingBottom="8dp"
+        android:textStyle="italic"
         android:text="Date"/>
 
     <View style="@style/Divider" />

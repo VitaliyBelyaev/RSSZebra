@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         tools:context="com.example.android.rsszebra.DetailsActivity">
@@ -32,8 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            android:text="Some info"
+            android:text="Title"
             android:textSize="28sp"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@android:color/black"/>
 
         <TextView
@@ -41,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
+            android:textStyle="italic"
             android:text="Date" />
 
         <View style="@style/Divider"/>
@@ -51,9 +53,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
+            android:paddingBottom="8dp"
             android:textColor="@android:color/black"
-            android:text="Text" />
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Description" />
 
-
+        <View style="@style/Divider"/>
     </LinearLayout>
 </ScrollView>

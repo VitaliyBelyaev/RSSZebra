@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RSSZebra</string>
+    <string name="details_label">Детальная информация</string>
+    <string name="open_in_browser">Открыть в браузере</string>
+</resources>

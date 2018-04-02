@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RSSZebra</string>
     <string name="details_label">Detailed information</string>
+    <string name="open_in_browser">Open in browser</string>
 </resources>

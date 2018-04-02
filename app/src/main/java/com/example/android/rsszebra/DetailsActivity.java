@@ -8,8 +8,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.app.LoaderManager;
 import android.content.Loader;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -32,6 +35,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
     private ProgressBar mProgressBar;
     private ImageView mImageView;
     private String imageUrl;
+    private String urlAsString;
 
 
     @Override
@@ -45,7 +49,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
         mImageView = findViewById(R.id.iv_details_image);
         mProgressBar = findViewById(R.id.details_progress_bar);
 
-        String uriAsString = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        urlAsString = getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
         String[] projection =
                 {
@@ -58,7 +62,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
                 };
 
         String selection = COLUMN_ITEM_LINK + "=?";
-        String[] selectionArgs = new String[]{uriAsString};
+        String[] selectionArgs = new String[]{urlAsString};
 
 
         Cursor cursor = getContentResolver().query(CONTENT_URI, projection, selection,
@@ -93,6 +97,26 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
             mDescriptionTextView.setText(text);
             cursor.close();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.open_link){
+            Uri webpage = Uri.parse(urlAsString);
+            Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
