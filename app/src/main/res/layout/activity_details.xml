@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            android:text="Title"
+            android:text="@string/dummy_title"
             android:textSize="28sp"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@android:color/black"/>
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:textStyle="italic"
-            android:text="Date" />
+            android:text="@string/dummy_date" />
 
         <View style="@style/Divider"/>
 
@@ -57,7 +57,7 @@
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Description" />
+            android:text="@string/dummy_text" />
 
         <View style="@style/Divider"/>
     </LinearLayout>

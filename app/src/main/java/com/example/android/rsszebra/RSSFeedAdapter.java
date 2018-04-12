@@ -24,10 +24,13 @@ public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemView
         void onClick(RSSItem rssItem);
     }
 
-    RSSFeedAdapter(ArrayList<RSSItem> items,RSSFeedAdapterOnClickHandler mClickHandler) {
-        this.items = items;
+    RSSFeedAdapter(RSSFeedAdapterOnClickHandler mClickHandler) {
         this.mClickHandler = mClickHandler;
+    }
 
+    public void setRSSItems(ArrayList<RSSItem> items){
+        this.items = items;
+        notifyDataSetChanged();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -69,6 +72,7 @@ public class RSSFeedAdapter extends RecyclerView.Adapter<RSSFeedAdapter.ItemView
 
     @Override
     public int getItemCount() {
+        if (items == null) return 0;
         return items.size();
     }
 

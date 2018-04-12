@@ -38,6 +38,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
     private String urlAsString;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +115,12 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
             Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
+                return true;
             }
+        } else if (id == R.id.settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

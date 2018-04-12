@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RSSZebra</string>
     <string name="details_label">Детальная информация</string>
     <string name="open_in_browser">Открыть в браузере</string>
+    <string name="settings_label">Настройки</string>
+
+    <!--Menus-->
+    <string name="open_settings">Настройки</string>
+
+
+    <!--Preferences-->
+    <string name="pref_url_title">Источник RSS потока</string>
 </resources>

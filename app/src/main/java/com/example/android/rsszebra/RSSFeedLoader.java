@@ -2,6 +2,7 @@ package com.example.android.rsszebra;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
 
 import com.example.android.rsszebra.data.RSSItem;
 import com.example.android.rsszebra.data.XMLParser;
@@ -35,12 +36,14 @@ public class RSSFeedLoader extends AsyncTaskLoader<ArrayList<RSSItem>> {
 
     @Override
     protected void onStartLoading() {
+        Log.d("RSSFeedLoader","in onStartLoading");
         forceLoad();
     }
 
 
     @Override
     public ArrayList<RSSItem> loadInBackground() {
+        Log.d("RSSFeedLoader","in loadInBackground");
         if (url == null) {
             return null;
         }

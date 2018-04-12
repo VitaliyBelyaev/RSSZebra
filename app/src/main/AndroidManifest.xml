@@ -29,6 +29,11 @@
                 android:value=".MainActivity"></meta-data>
         </activity>
 
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settings_label">
+        </activity>
+
         <provider
             android:name=".data.RSSItemProvider"
             android:authorities="com.example.android.rsszebra"
